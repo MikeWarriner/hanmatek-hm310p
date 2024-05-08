@@ -6,7 +6,10 @@ const {app, Menu, ipcMain, BrowserWindow} = require('electron');
 
 const storage = require('electron-json-storage');
 const windowStateKeeper = require('electron-window-state');
-const isDev = require('electron-is-dev');
+// const isDev = require('electron-is-dev');
+
+const remoteMain = require('@electron/remote/main');
+remoteMain.initialize();
 
 let mainWindow;
 let settingsWindow;
@@ -218,14 +221,16 @@ function createWindow() {
         height: 800
     };
 
+    var isDev = true;
     const windowState = isDev ? devWindowState : mainWindowState;
-
+    
     mainWindow = new BrowserWindow(Object.assign(windowState, {
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false,
         }
     }));
-
+    remoteMain.enable(mainWindow.webContents)
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
@@ -235,6 +240,7 @@ function createWindow() {
     const menu = Menu.buildFromTemplate(menuTemplate);
     Menu.setApplicationMenu(menu);
 
+    
     if (isDev) {
         mainWindow.webContents.openDevTools();
     }

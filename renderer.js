@@ -1,5 +1,5 @@
-const {ipcRenderer: ipc, remote} = require('electron');
-
+const {ipcRenderer: ipc/*, remote*/} = require('electron');
+const remote = require('@electron/remote');
 const {dialog} = remote;
 
 const jQuery = require('jquery');
