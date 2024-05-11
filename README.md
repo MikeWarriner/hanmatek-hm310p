@@ -1,7 +1,8 @@
-# Hanmatek HM310P
+# Hanmatek HM310P working on Apple Silicon 2024
 
 > Electron based application for the Hanmatek HM310P DC Power Supply, offers Charts and CSV Export.
 
+MFW: Patched to work on Apple Silicon with the latest versions of Electron etc.  11/May/2024
 
 ![](screenshot.png)
 
